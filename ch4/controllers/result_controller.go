@@ -12,16 +12,16 @@ import (
 )
 
 type ResultsController struct{
-	resultsService *services.ResultService
+	resultsService *services.ResultsService
 }
 
-func NewResultController(resultsService *services.ResultService) *ResultsController{
+func NewResultController(resultsService *services.ResultsService) *ResultsController{
 	return &ResultsController{
 		resultsService: resultsService,
 	}
 }
 
-func (rc ResultsController) CreateResult(ctx gin.Context){
+func (rc ResultsController) CreateResult(ctx *gin.Context){
 	body, err := io.ReadAll(ctx.Request.Body)
 	if err != nil {
 		log.Println("Error while reading create result request body", err)
@@ -32,12 +32,12 @@ func (rc ResultsController) CreateResult(ctx gin.Context){
 	var result models.Result
 	err = json.Unmarshal(body, &result)
 	if err != nil{
-		log.Println("error while unmarshaling create result request body")
+		log.Println("error while un marshaling create result request body")
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return 
 	}
 
-	response, responseErr := rc.resultsService.CreateResult(&runner)
+	response, responseErr := rc.resultsService.CreateResult(&result)
 	if responseErr != nil {
 		ctx.AbortWithStatusJSON(responseErr.Status, responseErr)
 		return

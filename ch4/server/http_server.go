@@ -6,6 +6,8 @@ import (
 	"github.com/spf13/viper"
 	"github.com/gin-gonic/gin"
 	"project/controllers"
+	"project/services"
+	"project/repositories"
 )
 
 type HttpServer struct {
@@ -24,7 +26,7 @@ dbHandler *sql.DB) HttpServer{
 	runnersService := services.NewRunnersService(runnersRepository, resultRepository)
 	resultsService := services.NewResultsService(resultRepository, runnersRepository)
 	runnersController := controllers.NewRunnersController(runnersService)
-	resultsController := controllers.NewResultsController(resultsService)
+	resultsController := controllers.NewResultController(resultsService)
 	
 
 	router := gin.Default()
