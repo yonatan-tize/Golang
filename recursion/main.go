@@ -5,12 +5,9 @@ import (
 )
 
 func main() {
-	num := 7
-	modifyValue(&num)
 
-	fmt.Println(num)
-}
+	name := "Yonatan Tizazu"
+	age := 24
 
-func modifyValue(num *int) {
-	*num = 20
+	fmt.Printf("My name is %c and i am %d years old", name[0], age)
 }
