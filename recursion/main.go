@@ -2,29 +2,24 @@ package main
 
 import (
 	"fmt"
+	"net/url"
 )
-
-type Rectangle struct {
-	length float64
-	width  float64
-}
-
-func (r Rectangle) Area() float64 {
-	return r.length * r.width
-}
-
-func (r Rectangle) Perimeter() float64 {
-	return r.length*2 + r.width*2
-}
 
 func main() {
 
-	name := Rectangle{
-		length: 4,
-		width:  2,
+	rawURL := "https://example.com:4000/path/home?query=param#fragmnet"
+	url, err := url.Parse(rawURL)
+
+	if err != nil {
+		fmt.Println("Error while parsing url")
+		return
 	}
 
-	fmt.Println(name.Perimeter())
-	fmt.Println(name.Area())
+	fmt.Println(url.Scheme)
+	fmt.Println(url.Host)
+	fmt.Println(url.Port())
+	fmt.Println(url.Path)
+	fmt.Println(url.RawQuery)
+	fmt.Println(url.Fragment)
 
 }
